@@ -1,0 +1,33 @@
+{% set name = "cgns" %}
+{% set version = "3.2.1" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  git_url: https://github.com/{{ name.upper() }}/{{ name.upper() }}
+  git_rev: v{{ version }}
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - cmake
+    - {{ compiler('c') }}
+    - {{ compiler('fortran') }}
+    - hdf5
+    - zlib
+  run:
+    - hdf5
+    - zlib
+
+about:
+  home: http://cgns.org
+  license: Public domain
+  summary:
+    The CFD General Notation System (CGNS) provides a standard for
+    recording and recovering computer data associated with the
+    numerical solution of fluid dynamics equations.
+  dev_url: https://github.com/CGNS/CGNS
