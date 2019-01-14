@@ -25,6 +25,10 @@ requirements:
     - zlib
     - hdf5
 
+test:
+  commands:
+    - cgnscheck
+
 about:
   home: http://cgns.org
   license: Public domain
