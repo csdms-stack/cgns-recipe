@@ -14,14 +14,14 @@ build:
 
 requirements:
   build:
-    - cmake
+    - cmake=2.8
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
-    - hdf5
     - zlib
+    - hdf5
   run:
-    - hdf5
     - zlib
+    - hdf5
 
 about:
   home: http://cgns.org
