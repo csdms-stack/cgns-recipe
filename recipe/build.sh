@@ -11,5 +11,5 @@ cmake .. \
     -DHDF5_m_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libm.so \
     -DHDF5_rt_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/librt.so
 make -j$CPU_COUNT
-# ctest --output-on-failure
+ctest
 make install
