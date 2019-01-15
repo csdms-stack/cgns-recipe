@@ -15,7 +15,9 @@ cmake .. \
     -DHDF5_NEED_ZLIB=ON \
     -DZLIB_LIBRARY=$BUILD_PREFIX/lib/libz.so \
     -DHDF5_m_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libm.so \
-    -DHDF5_rt_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/librt.so
+    -DHDF5_rt_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/librt.so \
+    -DHDF5_dl_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libdl.so \
+    -DHDF5_pthread_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libpthread.so
 make -j$CPU_COUNT
 ctest
 make install
