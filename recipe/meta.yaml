@@ -1,5 +1,5 @@
 {% set name = "cgns" %}
-{% set version = "3.2.1" %}
+{% set version = "3.3.1" %}
 
 package:
   name: {{ name }}
@@ -8,20 +8,26 @@ package:
 source:
   git_url: https://github.com/{{ name.upper() }}/{{ name.upper() }}
   git_rev: v{{ version }}
+  patches:
+    - interface.patch
 
 build:
   number: 0
 
 requirements:
   build:
-    - cmake
+    - cmake=2.8
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
-    - hdf5
     - zlib
+    - hdf5
   run:
-    - hdf5
     - zlib
+    - hdf5
+
+test:
+  commands:
+    - cgnscheck
 
 about:
   home: http://cgns.org
