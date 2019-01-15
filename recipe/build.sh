@@ -3,6 +3,7 @@
 mkdir _build && cd _build
 cmake .. \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCGNS_BUILD_SHARED=ON \
     -DCGNS_USE_SHARED=ON \
     -DCGNS_ENABLE_FORTRAN=ON \
