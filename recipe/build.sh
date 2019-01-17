@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+export MACOSX_DEPLOYMENT_TARGET=""
+
 mkdir _build && cd _build
 cmake .. \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
