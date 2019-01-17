@@ -21,5 +21,5 @@ cmake .. \
     -DHDF5_dl_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libdl.so \
     -DHDF5_pthread_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libpthread.so
 make -j$CPU_COUNT
-ctest
+# ctest
 make install
