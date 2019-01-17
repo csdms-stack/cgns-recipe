@@ -1,6 +1,18 @@
 #! /usr/bin/env bash
 
-export MACOSX_DEPLOYMENT_TARGET=""
+_libpath=/usr/lib
+case `uname -s` in
+    Linux)
+	_libpath=$BUILD_PREFIX/$HOST/sysroot/usr/lib
+	;;
+    Darwin)
+	export MACOSX_DEPLOYMENT_TARGET=""
+	;;
+    *)
+	echo "Unknown OS"
+	exit 1
+esac
+export _libpath
 
 mkdir _build && cd _build
 cmake .. \
@@ -16,10 +28,10 @@ cmake .. \
     -DHDF5_NEED_SZIP=OFF \
     -DHDF5_NEED_ZLIB=ON \
     -DZLIB_LIBRARY=$BUILD_PREFIX/lib/libz$SHLIB_EXT \
-    -DHDF5_m_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libm$SHLIB_EXT \
-    -DHDF5_rt_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/librt$SHLIB_EXT \
-    -DHDF5_dl_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libdl$SHLIB_EXT \
-    -DHDF5_pthread_LIBRARY_RELEASE=$BUILD_PREFIX/$HOST/sysroot/usr/lib/libpthread$SHLIB_EXT
+    -DHDF5_m_LIBRARY_RELEASE=$_libpath/libm$SHLIB_EXT \
+    -DHDF5_rt_LIBRARY_RELEASE=$_libpath/librt$SHLIB_EXT \
+    -DHDF5_dl_LIBRARY_RELEASE=$_libpath/libdl$SHLIB_EXT \
+    -DHDF5_pthread_LIBRARY_RELEASE=$_libpath/libpthread$SHLIB_EXT
 make -j$CPU_COUNT
 # ctest
 make install
