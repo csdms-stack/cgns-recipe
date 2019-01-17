@@ -33,5 +33,7 @@ cmake .. \
     -DHDF5_dl_LIBRARY_RELEASE=$_libpath/libdl$SHLIB_EXT \
     -DHDF5_pthread_LIBRARY_RELEASE=$_libpath/libpthread$SHLIB_EXT
 make -j$CPU_COUNT
-# ctest
+if [[ `uname -s` == 'Linux' ]]; then
+    ctest
+fi
 make install
