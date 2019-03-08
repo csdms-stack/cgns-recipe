@@ -22,7 +22,7 @@ cmake .. \
     -DHDF5_NEED_ZLIB=ON \
     -DZLIB_LIBRARY=$BUILD_PREFIX/lib/libz$SHLIB_EXT
 
-sed -i 's@^c@!c@' src/cgnslib_f.h  # check behavior on macOS
+sed -i.orig 's@^c@!c@' src/cgnslib_f.h
 
 make -j$CPU_COUNT
 if [[ `uname -s` == 'Linux' ]]; then
