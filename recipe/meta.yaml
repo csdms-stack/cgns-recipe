@@ -10,6 +10,7 @@ source:
   git_rev: v{{ version }}
   patches:
     - if-block.patch
+    - macosx.patch
 
 build:
   number: 0
