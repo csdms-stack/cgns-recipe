@@ -17,7 +17,7 @@ build:
 
 requirements:
   build:
-    - cmake=3.3
+    - cmake
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
     - zlib
