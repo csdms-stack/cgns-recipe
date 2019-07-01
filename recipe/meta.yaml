@@ -32,7 +32,8 @@ test:
 
 about:
   home: http://cgns.org
-  license: Public domain
+  license: Zlib
+  license_file: LICENSE
   summary:
     The CFD General Notation System (CGNS) provides a standard for
     recording and recovering computer data associated with the
