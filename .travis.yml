@@ -33,11 +33,11 @@ install:
   - export PATH="$CONDA_PREFIX/bin:$PATH"
   - hash -r
   - conda config --set always_yes yes --set changeps1 no
-  - conda install python=$TRAVIS_PYTHON_VERSION
-  - conda install -q conda-build anaconda-client coverage sphinx
+  - conda install python=$TRAVIS_PYTHON_VERSION -c conda-forge
+  - conda install -q conda-build anaconda-client -c conda-forge
 
 script:
-  - conda build ./recipe -c csdms-stack -c defaults -c conda-forge --old-build-string
+  - conda build ./recipe -c conda-forge -c csdms-stack --old-build-string
 
 after_success:
   - curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py > $HOME/anaconda_upload.py
