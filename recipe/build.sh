@@ -27,7 +27,5 @@ cmake .. \
 sed -i.orig 's@^c@!c@' src/cgnslib_f.h
 
 make -j$CPU_COUNT
-if [[ `uname -s` == 'Linux' ]]; then
-    ctest
-fi
+ctest
 make install
