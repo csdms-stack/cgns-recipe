@@ -13,18 +13,20 @@ source:
     - macosx.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
-    - cmake=3.3
+    - cmake
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
+    - libgfortran=3.0.1 # [osx]
+  host:
     - zlib
-    - hdf5=1.8
+    - hdf5=1.8.20
   run:
     - zlib
-    - hdf5=1.8
+    - hdf5=1.8.20
 
 test:
   commands:
@@ -32,7 +34,8 @@ test:
 
 about:
   home: http://cgns.org
-  license: Public domain
+  license: Zlib
+  license_file: LICENSE
   summary:
     The CFD General Notation System (CGNS) provides a standard for
     recording and recovering computer data associated with the
