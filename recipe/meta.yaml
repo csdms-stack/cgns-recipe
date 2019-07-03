@@ -20,12 +20,13 @@ requirements:
     - cmake
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
+    - libgfortran=3.0.1
   host:
     - zlib
-    - hdf5=1.8
+    - hdf5=1.8.20
   run:
     - zlib
-    - hdf5=1.8
+    - hdf5=1.8.20
 
 test:
   commands:
