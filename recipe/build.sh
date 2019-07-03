@@ -1,39 +1,31 @@
 #! /usr/bin/env bash
 
-_libpath=/usr/lib
-case `uname -s` in
-    Linux)
-	_libpath=$BUILD_PREFIX/$HOST/sysroot/usr/lib
-	;;
-    Darwin)
-	export MACOSX_DEPLOYMENT_TARGET=""
-	;;
-    *)
-	echo "Unknown OS"
-	exit 1
-esac
-export _libpath
+_build_shared=ON
+if [[ `uname -s` == 'Darwin' ]]; then
+    export MACOSX_DEPLOYMENT_TARGET=""
+    _build_shared=OFF
+fi
 
 mkdir _build && cd _build
 cmake .. \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCGNS_BUILD_SHARED=ON \
+    -DCGNS_BUILD_SHARED=$_build_shared \
     -DCGNS_USE_SHARED=ON \
     -DCGNS_ENABLE_FORTRAN=ON \
-    -DCGNS_ENABLE_HDF5=ON \
+    -DFORTRAN_NAMING="LOWERCASE_" \
     -DCGNS_ENABLE_TESTS=ON \
     -DCGNS_ENABLE_LFS=ON \
     -DCMAKE_C_FLAGS:STRING=-D_LARGEFILE64_SOURCE \
+    -DCGNS_ENABLE_HDF5=ON \
+    -DHDF5_LIBRARY=$PREFIX/lib/libhdf5$SHLIB_EXT \
+    -DHDF5_INCLUDE_PATH=$PREFIX/include \
     -DHDF5_NEED_SZIP=OFF \
     -DHDF5_NEED_ZLIB=ON \
-    -DZLIB_LIBRARY=$BUILD_PREFIX/lib/libz$SHLIB_EXT \
-    -DHDF5_m_LIBRARY_RELEASE=$_libpath/libm$SHLIB_EXT \
-    -DHDF5_rt_LIBRARY_RELEASE=$_libpath/librt$SHLIB_EXT \
-    -DHDF5_dl_LIBRARY_RELEASE=$_libpath/libdl$SHLIB_EXT \
-    -DHDF5_pthread_LIBRARY_RELEASE=$_libpath/libpthread$SHLIB_EXT
+    -DZLIB_LIBRARY=$PREFIX/lib/libz$SHLIB_EXT
+
+sed -i.orig 's@^c@!c@' src/cgnslib_f.h
+
 make -j$CPU_COUNT
-if [[ `uname -s` == 'Linux' ]]; then
-    ctest
-fi
+ctest
 make install

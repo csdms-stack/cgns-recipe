@@ -1,5 +1,5 @@
 {% set name = "cgns" %}
-{% set version = "3.3.1" %}
+{% set version = "3.2.1" %}
 
 package:
   name: {{ name }}
@@ -9,7 +9,7 @@ source:
   git_url: https://github.com/{{ name.upper() }}/{{ name.upper() }}
   git_rev: v{{ version }}
   patches:
-    - interface.patch
+    - if-block.patch
     - macosx.patch
 
 build:
@@ -17,14 +17,16 @@ build:
 
 requirements:
   build:
-    - cmake=2.8
+    - cmake
     - {{ compiler('c') }}
     - {{ compiler('fortran') }}
+    - libgfortran=3.0.1 # [osx]
+  host:
     - zlib
-    - hdf5
+    - hdf5=1.8.20
   run:
     - zlib
-    - hdf5
+    - hdf5=1.8.20
 
 test:
   commands:
@@ -32,7 +34,8 @@ test:
 
 about:
   home: http://cgns.org
-  license: Public domain
+  license: Zlib
+  license_file: LICENSE
   summary:
     The CFD General Notation System (CGNS) provides a standard for
     recording and recovering computer data associated with the
